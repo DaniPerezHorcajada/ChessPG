@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../partials/head %>
+	<meta charset="utf-8">
+	<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+	<script src="/js/login/login.js" charset="utf-8"></script>
+</head>
+<body>
+	<h3>Log in</h3>
+	<form onsubmit="return logear(this)">
+		<input type="text" id="usuario" placeholder="Nombre de usuario">
+		<input type="text" id="password" placeholder="Contraseña">
+		<input type="submit" value="Hacer Login">
+	</form>
+	<form action="/registro">
+		<input type="submit" value="Crear una cuenta">
+	</form>
+
+	<form action="/chat">
+		<input type="submit" value="Entrar">
+	</form>
+
+</body>
+</html>

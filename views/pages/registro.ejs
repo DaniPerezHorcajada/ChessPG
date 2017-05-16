@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../partials/head %>
+	<meta charset="utf-8">
+	<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+	<script src="/js/registro/registro.js" charset="utf-8"></script>
+</head>
+<body>
+	<h3>Registrar usuario</h3>
+	<form onsubmit="return addUser(this)">
+		<input type="text" id="usuario" placeholder="Nombre de usuario">
+		<input type="text" id="password" placeholder="Contraseña">
+		<input type="text" id="c_password" placeholder="Confirmar contraseña">
+		<input type="submit" value="Crear usuario">
+	</form>
+  <form action="/">
+		<input type="submit" value="Home">
+	</form>
+
+</body>
+</html>
