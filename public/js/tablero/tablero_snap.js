@@ -586,19 +586,19 @@ window.onload=function(){
         });
         pos_cas++;
       }
-      for(var i = 8; num-i > 0 && tipo[num-i] == 0; i += 8){
+      for(var i = 8; num-i >= 0 && tipo[num-i] == 0; i += 8){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num+i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num+i)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num-i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num-i+1)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num-i].attr({
           fill: 'red'
         });
@@ -616,19 +616,19 @@ window.onload=function(){
         });
         pos_cas++;
       }
-      for(var i = 8; num-i > 0 && tipo[num-i] == 0; i += 8){
+      for(var i = 8; num-i >= 0 && tipo[num-i] == 0; i += 8){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num+i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num+i)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num-i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num-i+1)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num-i].attr({
           fill: 'red'
         });
@@ -640,26 +640,26 @@ window.onload=function(){
     }else
     if (tipo[num] == "AB"){
       var pos_cas = 0;
-      for(var i = 9; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 9){
+      for(var i = 9; num+i < 64 && (num+i)%8 != 0 && tipo[num+i] == 0; i += 9){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 7; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 7){
+      for(var i = 7; num+i < 64 && (num+i+1)%8 != 0 && tipo[num+i] == 0; i += 7){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 9; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 9){
-        tab[num+i].attr({
+      for(var i = 9; num-i >= 0 && (num-i+1)%8 != 0 && tipo[num-i] == 0; i += 9){
+        tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 7; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 7){
-        tab[num+i].attr({
+      for(var i = 7; num-i >= 0 && (num-i)%8 != 0 && tipo[num-i] == 0; i += 7){
+        tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
@@ -670,26 +670,26 @@ window.onload=function(){
     }else
     if (tipo[num] == "AN"){
       var pos_cas = 0;
-      for(var i = 9; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 9){
+      for(var i = 9; num+i < 64 && (num+i)%8 != 0 && tipo[num+i] == 0; i += 9){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 7; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 7){
+      for(var i = 7; num+i < 64 && (num+i+1)%8 != 0 && tipo[num+i] == 0; i += 7){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 9; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 9){
-        tab[num+i].attr({
+      for(var i = 9; num-i >= 0 && (num-i+1)%8 != 0 && tipo[num-i] == 0; i += 9){
+        tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 7; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 7){
-        tab[num+i].attr({
+      for(var i = 7; num-i >= 0 && (num-i)%8 != 0 && tipo[num-i] == 0; i += 7){
+        tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
@@ -700,103 +700,103 @@ window.onload=function(){
     }else
     if (tipo[num] == "QB"){
       var pos_cas = 0;
-      for(var i = 9; num+i < 64 && tipo[num+i] == 0; i += 9){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 7; num+i < 64 && tipo[num+i] == 0; i += 7){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 9; num-i > 0 && tipo[num-i] == 0; i += 9){
-        tab[num-i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 7; num-i > 0 && tipo[num-i] == 0; i += 7){
-        tab[num-i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
       for(var i = 8; num+i < 64 && tipo[num+i] == 0; i += 8){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 8; num-i > 0 && tipo[num-i] == 0; i += 8){
+      for(var i = 8; num-i >= 0 && tipo[num-i] == 0; i += 8){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      /*for(var i = 1; num+i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num+i)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num-i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num-i+1)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
-      }*/
+      }
+      for(var i = 9; num+i < 64 && (num+i)%8 != 0 && tipo[num+i] == 0; i += 9){
+        tab[num+i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 7; num+i < 64 && (num+i+1)%8 != 0 && tipo[num+i] == 0; i += 7){
+        tab[num+i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 9; num-i >= 0 && (num-i+1)%8 != 0 && tipo[num-i] == 0; i += 9){
+        tab[num-i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 7; num-i >= 0 && (num-i)%8 != 0 && tipo[num-i] == 0; i += 7){
+        tab[num-i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
       if(pos_cas == 0){
         alert("ningún movimiento es posible");
       }
     }else
     if (tipo[num] == "QN"){
       var pos_cas = 0;
-      for(var i = 9; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 9){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 7; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 7){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 9; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 9){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 7; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 7){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
       for(var i = 8; num+i < 64 && tipo[num+i] == 0; i += 8){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 8; num-i > 0 && tipo[num-i] == 0; i += 8){
+      for(var i = 8; num-i >= 0 && tipo[num-i] == 0; i += 8){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num+i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num+i)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num-i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num-i+1)%8 != 0 && tipo[num+i] == 0; i++){
+        tab[num-i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 9; num+i < 64 && (num+i)%8 != 0 && tipo[num+i] == 0; i += 9){
+        tab[num+i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 7; num+i < 64 && (num+i+1)%8 != 0 && tipo[num+i] == 0; i += 7){
+        tab[num+i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 9; num-i >= 0 && (num-i+1)%8 != 0 && tipo[num-i] == 0; i += 9){
+        tab[num-i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 7; num-i >= 0 && (num-i)%8 != 0 && tipo[num-i] == 0; i += 7){
         tab[num-i].attr({
           fill: 'red'
         });

@@ -15,14 +15,14 @@ var messages = [{
 	author: "Lobby"
 }];
 
-var posiciones = ["CB", "CB", "CB",  "CB", "CB", "CB", "CB", "CB",
+var posiciones = [0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
+									0, 0, 0, "AB", 0, 0, 0, 0,
+									0, 0, 0, "AB", 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, "QB", 0, 0, "QB", 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, 0, 0, 0, 0, 0, 0, 0,
-									"CN", "CN", "CN",  "CN", "CN", "CN", "CN", "CN"];
+									0, 0, 0, 0, 0, 0, 0, 0,];
 
 Msg.find({}, function(err, mensajes){
 	mensajes.map(function(elem, index){
