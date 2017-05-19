@@ -4,50 +4,84 @@ window.onload=function(){
   var tablero = Snap("#tablero");
   var x = 0;
   var y = 0;
+    var origen;
 
+  modo = false;
   tab = [];
-  negro = false;
+  //negro = false;
 
-  for (var i = 1; i <= 64; i++){
-    cas = tablero.rect(x,y,60,60);
-    if (negro == false){
-      cas.attr({
-        fill: 'white'
-      });
-      negro = true;
-    }else{
-      cas.attr({
-        fill: 'black'
-      });
-      negro = false;
-    }
 
-    if(i%8 == 0 && i != 0){
-      x = 0;
-      y += 60;
-      if (negro == false){
-        negro = true;
+  function pintar_casilla(){
+    for (var i = 1; i <= 64; i++){
+      cas = tablero.rect(x,y,60,60);
+      //if (negro == false){
+        cas.attr({
+          fill: 'transparent'
+        });
+        /*negro = true;
       }else{
+        cas.attr({
+          fill: 'black'
+        });
         negro = false;
+      }*/
+
+      if(i%8 == 0 && i != 0){
+        x = 0;
+        y += 60;
+        /*if (negro == false){
+          negro = true;
+        }else{
+          negro = false;
+        }*/
+      }else{
+        x += 60;
       }
-    }else{
-      x += 60;
+
+      tab.push(cas);
     }
-
-    tab.push(cas);
-
   }
 
-  function identificar_p(piezas, num){
-    if (piezas[num] == 0){
-      alert("Casilla vacía, selecciona otra");
+  /*function representar_tablero(piezas){
+    for (var i = 0; i < 64; i++){
+      if (piezas[i] != 0){
+        document.body.style.backgroundImage = "url('../../img/" + piezas[i] + ".png')";
+      }
+    }
+  }*/
+
+  pintar_casilla();
+  //representar_tablero(pieza);
+
+  function identificar_cas(piezas, num, modo){
+    if (modo == false){
+      if (piezas[num] == 0){
+        alert("Casilla vacía, selecciona otra");
+      }else{
+        alert(piezas[num]);
+        alert(num);
+        origen = num;
+        movimiento_pieza(piezas, num);
+        return true;
+      }
     }else{
-      alert(piezas[num]);
-      alert(num);
-      movimiento_pieza(piezas, num);
-      /*tab[num+8].attr({
-        fill: 'red'
-      });*/
+      if (piezas[num] == 0){
+        alert("Movimiento en desarrollo");
+        for (var i = 1; i <= 63; i++){
+          tab[i].attr({
+            fill: 'transparent'
+          });
+        }
+        alert(piezas[num]);
+        alert(piezas[origen]);
+        piezas[num] = piezas[origen];
+        piezas[origen] = 0;
+        return false;
+      }else{
+        alert(piezas[num]);
+        alert(num);
+        movimiento_pieza(piezas, num);
+      }
     }
   }
 
@@ -586,19 +620,19 @@ window.onload=function(){
         });
         pos_cas++;
       }
-      for(var i = 8; num-i > 0 && tipo[num-i] == 0; i += 8){
+      for(var i = 8; num-i >= 0 && tipo[num-i] == 0; i += 8){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num+i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num+i)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num-i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num-i+1)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num-i].attr({
           fill: 'red'
         });
@@ -616,19 +650,19 @@ window.onload=function(){
         });
         pos_cas++;
       }
-      for(var i = 8; num-i > 0 && tipo[num-i] == 0; i += 8){
+      for(var i = 8; num-i >= 0 && tipo[num-i] == 0; i += 8){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num+i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num+i)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num-i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num-i+1)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num-i].attr({
           fill: 'red'
         });
@@ -640,26 +674,26 @@ window.onload=function(){
     }else
     if (tipo[num] == "AB"){
       var pos_cas = 0;
-      for(var i = 9; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 9){
+      for(var i = 9; num+i < 64 && (num+i)%8 != 0 && tipo[num+i] == 0; i += 9){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 7; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 7){
+      for(var i = 7; num+i < 64 && (num+i+1)%8 != 0 && tipo[num+i] == 0; i += 7){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 9; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 9){
-        tab[num+i].attr({
+      for(var i = 9; num-i >= 0 && (num-i+1)%8 != 0 && tipo[num-i] == 0; i += 9){
+        tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 7; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 7){
-        tab[num+i].attr({
+      for(var i = 7; num-i >= 0 && (num-i)%8 != 0 && tipo[num-i] == 0; i += 7){
+        tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
@@ -670,26 +704,26 @@ window.onload=function(){
     }else
     if (tipo[num] == "AN"){
       var pos_cas = 0;
-      for(var i = 9; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 9){
+      for(var i = 9; num+i < 64 && (num+i)%8 != 0 && tipo[num+i] == 0; i += 9){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 7; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 7){
+      for(var i = 7; num+i < 64 && (num+i+1)%8 != 0 && tipo[num+i] == 0; i += 7){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 9; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 9){
-        tab[num+i].attr({
+      for(var i = 9; num-i >= 0 && (num-i+1)%8 != 0 && tipo[num-i] == 0; i += 9){
+        tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 7; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 7){
-        tab[num+i].attr({
+      for(var i = 7; num-i >= 0 && (num-i)%8 != 0 && tipo[num-i] == 0; i += 7){
+        tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
@@ -700,103 +734,103 @@ window.onload=function(){
     }else
     if (tipo[num] == "QB"){
       var pos_cas = 0;
-      for(var i = 9; num+i < 64 && tipo[num+i] == 0; i += 9){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 7; num+i < 64 && tipo[num+i] == 0; i += 7){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 9; num-i > 0 && tipo[num-i] == 0; i += 9){
-        tab[num-i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 7; num-i > 0 && tipo[num-i] == 0; i += 7){
-        tab[num-i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
       for(var i = 8; num+i < 64 && tipo[num+i] == 0; i += 8){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 8; num-i > 0 && tipo[num-i] == 0; i += 8){
+      for(var i = 8; num-i >= 0 && tipo[num-i] == 0; i += 8){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      /*for(var i = 1; num+i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num+i)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num-i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num-i+1)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
-      }*/
+      }
+      for(var i = 9; num+i < 64 && (num+i)%8 != 0 && tipo[num+i] == 0; i += 9){
+        tab[num+i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 7; num+i < 64 && (num+i+1)%8 != 0 && tipo[num+i] == 0; i += 7){
+        tab[num+i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 9; num-i >= 0 && (num-i+1)%8 != 0 && tipo[num-i] == 0; i += 9){
+        tab[num-i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 7; num-i >= 0 && (num-i)%8 != 0 && tipo[num-i] == 0; i += 7){
+        tab[num-i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
       if(pos_cas == 0){
         alert("ningún movimiento es posible");
       }
     }else
     if (tipo[num] == "QN"){
       var pos_cas = 0;
-      for(var i = 9; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 9){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 7; num+i < 64 && num+i%8 != 0 && tipo[num+i] == 0; i += 7){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 9; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 9){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
-      for(var i = 7; num-i > 0 && num-i%8 != 0 && tipo[num-i] == 0; i += 7){
-        tab[num+i].attr({
-          fill: 'red'
-        });
-        pos_cas++;
-      }
       for(var i = 8; num+i < 64 && tipo[num+i] == 0; i += 8){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 8; num-i > 0 && tipo[num-i] == 0; i += 8){
+      for(var i = 8; num-i >= 0 && tipo[num-i] == 0; i += 8){
         tab[num-i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num+i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num+i)%8 != 0 && tipo[num+i] == 0; i++){
         tab[num+i].attr({
           fill: 'red'
         });
         pos_cas++;
       }
-      for(var i = 1; num-i%8 != 0 && tipo[num+i] == 0; i++){
+      for(var i = 1; (num-i+1)%8 != 0 && tipo[num+i] == 0; i++){
+        tab[num-i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 9; num+i < 64 && (num+i)%8 != 0 && tipo[num+i] == 0; i += 9){
+        tab[num+i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 7; num+i < 64 && (num+i+1)%8 != 0 && tipo[num+i] == 0; i += 7){
+        tab[num+i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 9; num-i >= 0 && (num-i+1)%8 != 0 && tipo[num-i] == 0; i += 9){
+        tab[num-i].attr({
+          fill: 'red'
+        });
+        pos_cas++;
+      }
+      for(var i = 7; num-i >= 0 && (num-i)%8 != 0 && tipo[num-i] == 0; i += 7){
         tab[num-i].attr({
           fill: 'red'
         });
@@ -818,12 +852,14 @@ window.onload=function(){
 
   for (var i = 0; i < 64; i++){
     tab[i].node.onclick = function(){
+      //modo false -> seleccion
+      //modo true -> movimiento
       for (var j = 0; j < 64; j++){
         if (tab[j].node == this){
           //identificar(j+1);
           alert(j+1);
           //alert(pieza[j]);
-          identificar_p(pieza, j);
+          modo = identificar_cas(pieza, j, modo);
         }
       }
     };
