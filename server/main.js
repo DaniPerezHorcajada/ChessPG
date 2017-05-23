@@ -15,14 +15,14 @@ var messages = [{
 	author: "Lobby"
 }];
 
-var posiciones = ["CB", "CB", "CB",  "CB", "CB", "CB", "CB", "CB",
+var posiciones = ["TB", "CB", "AB", "KB", "QB", "AB", "CB", "TB",
+									"PB", "PB", "PB", "PB", "PB", "PB", "PB", "PB",
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, "QB", 0, 0, "QB", 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, 0, 0, 0, 0, 0, 0, 0,
-									"CN", "CN", "CN",  "CN", "CN", "CN", "CN", "CN"];
+									"PN", "PN", "PN", "PN", "PN", "PN", "PN", "PN",
+									"TN", "CN", "AN", "KN", "QN", "AN", "CN", "TN",];
 
 Msg.find({}, function(err, mensajes){
 	mensajes.map(function(elem, index){
@@ -85,6 +85,10 @@ io.on('connection', function(socket) {
 
 	socket.emit("test_de_piezas", posiciones);
 
+	socket.on("movimiento", function(num, i){
+		console.log("paece qe");
+		io.sockets.emit("prueba_mov", num, i);
+	});
 
 });
 
