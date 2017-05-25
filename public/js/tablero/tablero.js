@@ -1,7 +1,7 @@
-var socket = io.connect("192.168.12.126:8080", { 'forceNew': true});
+socket = io.connect("192.168.12.126:8080", { 'forceNew': true});
 
 function identificar(posicion){
-  alert(posicion + "local");
+  //alert(posicion + "local");
   socket.emit("ident_pos", posicion);
 }
 

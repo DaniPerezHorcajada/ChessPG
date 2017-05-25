@@ -15,14 +15,14 @@ var messages = [{
 	author: "Lobby"
 }];
 
-var posiciones = ["CB", "CB", "CB",  "CB", "CB", "CB", "CB", "CB",
+var posiciones = ["TB", "CB", "AB", "KB", "QB", "AB", "CB", "TB",
+									"PB", "PB", "PB", "PB", "PB", "PB", "PB", "PB",
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, "QB", 0, 0, "QB", 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, 0, 0, 0, 0, 0, 0, 0,
-									"CN", "CN", "CN",  "CN", "CN", "CN", "CN", "CN"];
+									"PN", "PN", "PN", "PN", "PN", "PN", "PN", "PN",
+									"TN", "CN", "AN", "KN", "QN", "AN", "CN", "TN",];
 
 Msg.find({}, function(err, mensajes){
 	mensajes.map(function(elem, index){
@@ -85,6 +85,25 @@ io.on('connection', function(socket) {
 
 	socket.emit("test_de_piezas", posiciones);
 
+	socket.on("movimiento_n", function(num, i){
+		//console.log("paece qe");
+		io.sockets.emit("prueba_mov_n", num, i);
+	});
+
+	socket.on("movimiento_b", function(num, i){
+		//console.log("paece qe");
+		io.sockets.emit("prueba_mov_b", num, i);
+	});
+
+	socket.on("captura_b", function(i){
+		//console.log("paece qe");
+		io.sockets.emit("prueba_capt_b", i);
+	});
+
+	socket.on("captura_n", function(i){
+		//console.log("paece qe");
+		io.sockets.emit("prueba_capt_n", i);
+	});
 
 });
 
