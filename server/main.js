@@ -15,14 +15,14 @@ var messages = [{
 	author: "Lobby"
 }];
 
-var posiciones = ["CB", "CB", "CB",  "CB", "CB", "CB", "CB", "CB",
+var posiciones = ["TB", "CB", "AB", "KB", "QB", "AB", "CB", "TB",
+									"PB", "PB", "PB", "PB", "PB", "PB", "PB", "PB",
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, "QB", 0, 0, "QB", 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, 0, 0, 0, 0, 0, 0, 0,
-									"CN", "CN", "CN",  "CN", "CN", "CN", "CN", "CN"];
+									"PN", "PN", "PN", "PN", "PN", "PN", "PN", "PN",
+									"TN", "CN", "AN", "KN", "QN", "AN", "CN", "TN",];
 
 Msg.find({}, function(err, mensajes){
 	mensajes.map(function(elem, index){
@@ -85,89 +85,28 @@ io.on('connection', function(socket) {
 
 	socket.emit("test_de_piezas", posiciones);
 
+	socket.on("movimiento_n", function(num, i){
+		//console.log("paece qe");
+		io.sockets.emit("prueba_mov_n", num, i);
+	});
+
+	socket.on("movimiento_b", function(num, i){
+		//console.log("paece qe");
+		io.sockets.emit("prueba_mov_b", num, i);
+	});
+
+	socket.on("captura_b", function(i){
+		//console.log("paece qe");
+		io.sockets.emit("prueba_capt_b", i);
+	});
+
+	socket.on("captura_n", function(i){
+		//console.log("paece qe");
+		io.sockets.emit("prueba_capt_n", i);
+	});
 
 });
 
 server.listen(8080, function(){
 	console.log("Servidor corriendo en http://localhost:8080");
 })
-
-/*
-
-
-//DELETEABLE
-
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-mongoose.connect("mongodb://localhost/database");
-var userSchemaJSON = { nombre:String, direccion:Object };
-var user_schema = new Schema(userSchemaJSON);
-var User = mongoose.model("User",user_schema);
-
-var msgSchema = {autor:String, texto:String};
-var msg_schema = new Schema(msgSchema);
-var Msg = mongoose.model("Msg", msg_schema);
-
-*/
-
-/*
-
-//DELETEABLE
-
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema
-
-mongoose.connect("mongodb://192.168.12.126:8080/prueba");
-
-var useSchemaJSON = {
-	nombre:String,
-	password:String
-};
-
-var user_schema = new Schema(userSchemaJSON);
-
-var User = mongoose.model("User",user_schema);
-*/
-
-
-
-/*
-//DELETEABLE
-
-app.get('/', function(req, res){
-	res.status(200).send("Hello World");
-});
-*/
-/*
-//DELETEABLE
-
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-
-  //Conecction URL
-var url = 'mongodb://localhost:27017/sockets';
-
-
-MongoClient.connect(url, function(err, db) {
-	assert.equal(null, err);
-	console.log("Connected successfully to server");
-	db.close();
-})
-*/
-
- //Se añadira una s (users)
-/*
-
-//EJEMPLOS
-
-var objeto = {tel: "561651651", calle: "fghadbskjfh"};
-var user1 = new User({nombre:"JOAN",direccion:objeto});
-user1.save(function(err){
-	console.log(err);
-});
-
-User.find({nombre:"JOAN"},function(err,user){
-	console.log(user);
-});
-
-*/
