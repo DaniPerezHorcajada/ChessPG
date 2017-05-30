@@ -7,6 +7,11 @@ var User = require('../models/Schema').user;
 var mainrutas = require('../routes/routes.main');
 var opn = require('opn');
 
+var jugadores = [];
+var orden_jug = 0;
+var turno = 0;
+var nom = "";
+
 app.set("view engine", "ejs");
 
 var messages = [{
@@ -15,14 +20,14 @@ var messages = [{
 	author: "Lobby"
 }];
 
-var posiciones = ["CB", "CB", "CB",  "CB", "CB", "CB", "CB", "CB",
+var posiciones = ["TB", "CB", "AB", "KB", "QB", "AB", "CB", "TB",
+									"PB", "PB", "PB", "PB", "PB", "PB", "PB", "PB",
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, "QB", 0, 0, "QB", 0, 0, 0,
 									0, 0, 0, 0, 0, 0, 0, 0,
-									0, 0, 0, 0, 0, 0, 0, 0,
-									"CN", "CN", "CN",  "CN", "CN", "CN", "CN", "CN"];
+									"PN", "PN", "PN", "PN", "PN", "PN", "PN", "PN",
+									"TN", "CN", "AN", "KN", "QN", "AN", "CN", "TN",];
 
 Msg.find({}, function(err, mensajes){
 	mensajes.map(function(elem, index){
@@ -36,6 +41,25 @@ app.use(express.static('public'));
 app.use('/', mainrutas);
 
 io.on('connection', function(socket) {
+	var direccion = socket.handshake;
+	if (jugadores.length < 2){
+		jugadores.push(direccion.address);
+		orden_jug = jugadores.length-1;
+		socket.emit("orden", orden_jug);
+		io.sockets.emit("define_turno", turno);
+		console.log("el orden es " + orden_jug);
+	}
+	socket.emit("definir_nombre", nom);
+
+	socket.on('disconnect', function(){
+		var direccion = socket.handshake;
+		var desconexion = jugadores.indexOf(direccion.address);
+		jugadores.splice(desconexion, 1);
+		console.log("jugador desconectado");
+		console.log(jugadores);
+	});
+
+	console.log(jugadores);
 	console.log('Alguien se ha conectado con Sockets');
 	console.log(socket.id);
 	socket.emit("messages", messages);
@@ -67,14 +91,17 @@ io.on('connection', function(socket) {
 		//messages.push(data);
 		console.log("paso 1");
 		User.findOne({nombre:data.user, password:data.pass}, function(err, usuario){
-			//console.log(usuario);
 			if (!usuario){
 				console.log("Intento fallido");
 			}else{
 				console.log("intento certero");
+				socket.emit('redirect', "/tablero");
 				res = true;
+				nom = data.user;
+				// socket.emit("definir_nombre", data.user);
 			}
 		});
+
 		return res;
 		//io.sockets.emit("messages", messages);
 	});
@@ -85,89 +112,32 @@ io.on('connection', function(socket) {
 
 	socket.emit("test_de_piezas", posiciones);
 
+	socket.on("movimiento_n", function(num, i){
+		io.sockets.emit("prueba_mov_n", num, i);
+	});
 
+	socket.on("movimiento_b", function(num, i){
+		io.sockets.emit("prueba_mov_b", num, i);
+	});
+
+	socket.on("captura_b", function(i){
+		io.sockets.emit("prueba_capt_b", i);
+	});
+
+	socket.on("captura_n", function(i){
+		io.sockets.emit("prueba_capt_n", i);
+	});
+
+	socket.on("fin_turno", function(){
+		if (turno == 0){
+			turno++;
+		}else{
+			turno = 0;
+		}
+		io.sockets.emit("define_turno", turno);
+	});
 });
 
 server.listen(8080, function(){
 	console.log("Servidor corriendo en http://localhost:8080");
 })
-
-/*
-
-
-//DELETEABLE
-
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-mongoose.connect("mongodb://localhost/database");
-var userSchemaJSON = { nombre:String, direccion:Object };
-var user_schema = new Schema(userSchemaJSON);
-var User = mongoose.model("User",user_schema);
-
-var msgSchema = {autor:String, texto:String};
-var msg_schema = new Schema(msgSchema);
-var Msg = mongoose.model("Msg", msg_schema);
-
-*/
-
-/*
-
-//DELETEABLE
-
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema
-
-mongoose.connect("mongodb://192.168.12.126:8080/prueba");
-
-var useSchemaJSON = {
-	nombre:String,
-	password:String
-};
-
-var user_schema = new Schema(userSchemaJSON);
-
-var User = mongoose.model("User",user_schema);
-*/
-
-
-
-/*
-//DELETEABLE
-
-app.get('/', function(req, res){
-	res.status(200).send("Hello World");
-});
-*/
-/*
-//DELETEABLE
-
-var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
-
-  //Conecction URL
-var url = 'mongodb://localhost:27017/sockets';
-
-
-MongoClient.connect(url, function(err, db) {
-	assert.equal(null, err);
-	console.log("Connected successfully to server");
-	db.close();
-})
-*/
-
- //Se añadira una s (users)
-/*
-
-//EJEMPLOS
-
-var objeto = {tel: "561651651", calle: "fghadbskjfh"};
-var user1 = new User({nombre:"JOAN",direccion:objeto});
-user1.save(function(err){
-	console.log(err);
-});
-
-User.find({nombre:"JOAN"},function(err,user){
-	console.log(user);
-});
-
-*/
