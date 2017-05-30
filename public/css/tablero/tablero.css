@@ -1,0 +1,9 @@
+#tablero{
+  background-image: url("/img/tablero.png");
+  background-repeat: no-repeat;
+  width: 480px;
+  height: 480px;
+  position:relative;
+  left: 20%;
+  top: 30px;
+}
