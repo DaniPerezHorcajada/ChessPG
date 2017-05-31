@@ -5,18 +5,27 @@
     <% include ../partials/head %>
   	<meta charset="utf-8">
     <script src="/libraries/snap.svg-min.js" charset="utf-8"></script>
+    <script src="/libraries/jquery-3.2.1.min.js" charset="utf-8"></script>
   	<script src="/js/tablero/tablero_snap.js" charset="utf-8"></script>
   	<script src="/socket.io/socket.io.js" charset="utf-8"></script>
   	<script src="/js/tablero/tablero.js" charset="utf-8"></script>
+  	<!-- <script src="/js/chat/chat.js" charset="utf-8"></script> -->
+    <link rel="stylesheet" href="/css/tablero/tablero.css">
     <style>
       #tablero{
-        width: 100%;
-        height: 700px;;
-        background-color: #FE2EF7;
+        width: 480px;
+        height: 480px;
       }
     </style>
   </head>
   <body>
     <svg id="tablero"></svg>
+    <!-- <div id="messages"></div>
+  	<br/>
+  	<form onsubmit="return addMessage(this)">
+  		<p id="username">aaa</p>
+  		<input type="text" id="texto" placeholder="Mensaje">
+  		<input type="submit" value="Enviar">
+  	</form> -->
   </body>
 </html>

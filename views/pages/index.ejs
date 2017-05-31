@@ -3,20 +3,31 @@
 <head>
 	<% include ../partials/head %>
 	<meta charset="utf-8">
-	<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="/libraries/bootstrap.min.css">
+	<style>
+		#cartel, #logo{
+			text-align: center;
+				padding-top: 40px;
+		}
+	</style>
 </head>
 <body>
-	<h1>Welcome to ChessPG</h1>
-	<!--<form action="return Logear(this)">-->
-	<form action="/login">
-		<input type="submit" value="entrar como usuario">
-	</form>
-	<form action="/registro">
-		<input type="submit" value="Crear una cuenta">
-	</form>
-	<form action="/tablero">
-		<input type="submit" value="Ir al tablero">
-	</form>
-
+	<div class="container">
+		<div class="row">
+			<h1 id="cartel" class="col-md-12">Welcome to Chess Online</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<a class="btn btn-default col-md-4 col-xs-12" href="/login" role="button">Entrar como usuario</a>
+			<a class="btn btn-default col-md-4 col-xs-12" href="/registro" role="button">Crear una cuenta</a>
+		</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<a class="btn btn-default col-md-8 col-xs-12" href="/tablero" role="button">Entrar como invitado</a>
+		</div>
+	</div>
+	<div id="logo" class="container">
+		<img alt="" src="/img/logo.png" width="50%" height="auto">
+	</div>
 </body>
 </html>
