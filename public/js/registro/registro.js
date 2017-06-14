@@ -1,4 +1,4 @@
-var socket = io.connect("192.168.12.126:8080", { 'forceNew': true});
+var socket = io.connect("192.168.1.10:8080", { 'forceNew': true});
 
 /*var express = require('express');
 var app = express();
